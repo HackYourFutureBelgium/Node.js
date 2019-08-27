@@ -7,14 +7,35 @@ const http = require('http');
  */
 function createServer(port) {
   let state = 10;
-
   const server = http.createServer((request, response) => {
     // TODO: Write your homework code here
+    console.log(request.method, request.url);
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+    switch (request.url) {
+      case '/state':
+        response.write(JSON.stringify({ state: Number(`${state}`)  }));
+        break;
+      case '/add':
+        state++;
+        response.write(JSON.stringify({ state:  Number(`${state}`) }));
+        break;
+      case '/reset':
+        state = 10;
+        response.write(JSON.stringify({ state: Number(`${state}`) }));
+        break;
+      case '/subtract':
+        state--;
+        response.write(JSON.stringify({state: Number(`${state}`)}));
+        break;
+      default:
+        response.writeHead(404, {'Content-Type': 'application/json'});
+        response.write(JSON.stringify({error: 'Not found'}));
+        break;
+    }
+    response.end();
   });
-
   return server;
 }
-
 module.exports = {
   createServer
 };

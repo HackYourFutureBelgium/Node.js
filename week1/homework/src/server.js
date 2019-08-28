@@ -13,19 +13,19 @@ function createServer(port) {
     response.writeHead(200, { 'Content-Type': 'application/json' });
     switch (request.url) {
       case '/state':
-        response.write(JSON.stringify({ state: Number(`${state}`)  }));
+        response.write(JSON.stringify({ state }));
         break;
       case '/add':
         state++;
-        response.write(JSON.stringify({ state:  Number(`${state}`) }));
+        response.write(JSON.stringify({ state }));
         break;
       case '/reset':
         state = 10;
-        response.write(JSON.stringify({ state: Number(`${state}`) }));
+        response.write(JSON.stringify({ state }));
         break;
       case '/subtract':
         state--;
-        response.write(JSON.stringify({state: Number(`${state}`)}));
+        response.write(JSON.stringify({state }));
         break;
       default:
         response.writeHead(404, {'Content-Type': 'application/json'});

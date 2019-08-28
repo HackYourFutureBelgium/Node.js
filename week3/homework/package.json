@@ -6,10 +6,6 @@
   "main": "src/index.js",
   "author": "George Sapkin",
   "license": "MIT",
-  "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
-  },
   "devDependencies": {
     "eslint": "^4.2.0",
     "eslint-config-standard": "^11.0.0",
@@ -17,11 +13,5 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "nodemon": "^1.18.9",
-    "uuid": "^3.3.2"
   }
 }

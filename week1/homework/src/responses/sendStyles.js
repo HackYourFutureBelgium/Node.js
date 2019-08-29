@@ -4,8 +4,8 @@ function sendStyles(response) {
   response.setHeader('Content-Type', 'text/css');
   response.write(`
     body {
-      background: #333333;
-      color:      #DDDDDD;
+      background: #333;
+      color:      #DDD;
       font-size: 1.5rem;
     }
   `);

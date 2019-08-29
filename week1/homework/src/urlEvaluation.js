@@ -1,12 +1,23 @@
 /* eslint-disable max-len */
 'use strict';
+
 function urlEvaluation(request) {
-  const resUrl = request.url;
+
+  const url = request.url;
+  const supportedUrls = [
+    '/',
+    '/state',
+    '/add',
+    '/subtract',
+    '/reset',
+    '/styles.css'
+  ];
+
   return {
-    callback: resUrl.split('').filter(x => x !== '/').join(''),
-    urlRoot: resUrl === '/',
-    urlStyles: resUrl === '/styles.css',
-    urlEnable: resUrl === '/' || resUrl === '/state' || resUrl === '/add' || resUrl === '/subtract' || resUrl === '/reset' || resUrl === '/styles.css'
+    urlRoot: url === '/',
+    urlStyles: url === '/styles.css',
+    urlEnable: supportedUrls.includes(url)
   };
 }
+
 module.exports = urlEvaluation;

@@ -1,3 +1,5 @@
+'use strict';
+
 function sendIndexPage(response) {
   response.setHeader('Content-Type', 'text/html');
   response.write(`
@@ -21,4 +23,5 @@ function sendIndexPage(response) {
     </html>
   `);
 }
+
 module.exports = sendIndexPage;

@@ -29,7 +29,6 @@ function createServer(port) {
       const resMessage = {
         state: state,
       };
-      response.write(JSON.stringify(resMessage)); // transform the response to JSON string and .write() method  sends a chunk of the response body.
     };
 
     if (url === `/state`) {
@@ -48,9 +47,9 @@ function createServer(port) {
       const resMessage = {
         error: 'Not found',
       };
-      response.write(JSON.stringify(resMessage));
     }
 
+    response.write(JSON.stringify(resMessage)); // transform the response to JSON string and .write() method  sends a chunk of the response body.
     response.end(); // Always .end() the response!
   });
   return server;

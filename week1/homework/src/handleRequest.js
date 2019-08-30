@@ -8,6 +8,7 @@ const sendError = require('./responses/sendError');
 const sendStyles = require('./responses/sendStyles');
 let session = {};
 
+
 function handleRequest(request, response) {
 
   // I tried to avoid the error when you have two o more conexions in the

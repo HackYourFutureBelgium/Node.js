@@ -1,1 +1,0 @@
-["Buy tomatoes","Go to the gym","Do the homework"]

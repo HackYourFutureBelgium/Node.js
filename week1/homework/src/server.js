@@ -14,7 +14,37 @@ function createServer(port) {
 
   const server = http.createServer((request, response) => {
     // TODO: Write your homework code here
+ if (request.url === '/state') {
 
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ state }));
+
+        } else if (request.url === '/add') {
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            state++;
+            res.write(JSON.stringify({ state }));
+
+        } else if (request.url === '/subtract') {
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            state--;
+            res.write(JSON.stringify({ state }));
+
+        } else if (request.url === '/reset') {
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            state = 10;
+            res.write(JSON.stringify({ state }));
+
+        } else {
+
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ error: 'Not found' }));
+
+        }
+
+        response.end();
     const url = request.url;
     const method = request.method;
 

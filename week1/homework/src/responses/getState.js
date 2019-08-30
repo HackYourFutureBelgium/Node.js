@@ -1,8 +1,9 @@
 'use strict';
 
 const sendJson = require('./sendJson');
-function getState(response, session, id) {
-  sendJson(response, session[id]);
+function getState(response, state) {
+  sendJson(response, state);
+  return state;
 }
 
 module.exports = getState;

@@ -1,9 +1,11 @@
 'use strict';
-
 const http = require('http');
 const handleRequest = require('./handleRequest');
 function createServer() {
-  const server = http.createServer(handleRequest);
+  let state = 10;
+  const server = http.createServer((request, response) => {
+    state = handleRequest(request, response, state);
+  });
   return server;
 }
 

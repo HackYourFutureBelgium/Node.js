@@ -5,12 +5,12 @@ const setSubtract = require('./responses/setSubtract');
 const setReset = require('./responses/setReset');
 const getState = require('./responses/getState');
 
-function getStore(response, session, id) {
+function getStore(response, state) {
   return {
-    add: () => { setAdd(response, session, id); },
-    subtract: () => { setSubtract(response, session, id); },
-    reset: () => { setReset(response, session, id); },
-    state: () => { getState(response, session, id); }
+    add: () => { return setAdd(response, state); },
+    subtract: () => { return setSubtract(response, state); },
+    reset: () => { return setReset(response, state); },
+    state: () => { return getState(response, state); }
   };
 }
 

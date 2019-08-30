@@ -2,9 +2,10 @@
 
 const sendJson = require('./sendJson');
 
-function setAdd(response, session, id) {
-  session[id] += 1;
-  sendJson(response, session[id]);
+function setAdd(response, state) {
+  state += 1;
+  sendJson(response, state);
+  return state;
 }
 
 module.exports = setAdd;

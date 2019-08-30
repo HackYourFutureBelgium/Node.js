@@ -23,10 +23,11 @@ function createServer(port) {
 
     const url = request.url; // declare url as a variable to use later
     console.log(url);
+    let resMessage = {};
 
     const res = () => {
       response.writeHead(200, { 'Content-Type': 'application/json' }); // response.writeHead(statusCode[, statusMessage][, headers])
-      const resMessage = {
+      resMessage = {
         state: state,
       };
     };
@@ -44,7 +45,7 @@ function createServer(port) {
       res();
     } else {
       response.writeHead(404, { 'Content-Type': 'application/json' });
-      const resMessage = {
+      resMessage = {
         error: 'Not found',
       };
     }
@@ -56,6 +57,8 @@ function createServer(port) {
 }
 
 /* test result:
+  > ava --verbose
+
   √ /state returns 10
   √ /add returns 11
   √ /subtract returns 9
@@ -63,10 +66,10 @@ function createServer(port) {
   √ querying undefined URL returns 404 Not Found
   √ /add, /reset returns 10
   √ /subtract, /reset returns 10
-  √ /add, /add, /state, /add, /subtract returns 12 (102ms)
-  √ /subtract, /subtract, /reset, /add, /state, /subtract, /add returns 11 (126ms)
-  √ /add, /add, /add, /add, /add, /add, /add, /add, /add, /add, /state returns 20 (144ms)
-  √ /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /state returns 0 (145ms)
+  √ /add, /add, /state, /add, /subtract returns 12 (107ms)
+  √ /subtract, /subtract, /reset, /add, /state, /subtract, /add returns 11 (119ms)
+  √ /add, /add, /add, /add, /add, /add, /add, /add, /add, /add, /state returns 20 (134ms)
+  √ /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /state returns 0 (136ms)
 
   11 tests passed
 */

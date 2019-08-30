@@ -9,49 +9,38 @@ function createServer(port) {
   const server = http.createServer((request, response) => {
     switch (request.url) {
       case '/state':
-        console.log('State');
         response.writeHead(200, { 'Content-Type': 'application/json' });
         res = JSON.stringify({ state: state });
-        response.write(res);
-        response.end();
+        response.end(res);
         break;
       case '/add':
-        console.log('Add');
         state += 1;
         response.writeHead(200, { 'Content-Type': 'application/json' });
         res = JSON.stringify({ state: state });
-        response.write(res);
-        response.end();
+        response.end(res);
         break;
       case '/subtract':
-        console.log('Subtract');
         state -= 1;
         response.writeHead(200, { 'Content-Type': 'application/json' });
         res = JSON.stringify({ state: state });
-        response.write(res);
-        response.end();
+        response.end(res);
         break;
       case '/reset':
-        console.log('Reset');
         state = 10;
         response.writeHead(200, { 'Content-Type': 'application/json' });
         res = JSON.stringify({ state: state });
-        response.write(res);
-        response.end();
+        response.end(res);
         break;
       default:
-        console.log('Default');
         response.writeHead(404, { 'Content-Type': 'application/json' });
-        res = JSON.stringify({ error: 'Not Found' });
-        response.write(res);
-        response.end();
+        res = JSON.stringify({ error: 'Not found' });
+        response.end(res);
         break;
     }
-    console.log(state);
     return state;
   });
 
   return server;
 }
 
-module.exports = createServer;
+module.exports = { createServer };

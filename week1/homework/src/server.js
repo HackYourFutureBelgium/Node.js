@@ -1,5 +1,5 @@
 'use strict';
-
+console.log(5);
 const http = require('http');
 
 /* `createServer` MUST return an instance of `http.Server` otherwise the tests
@@ -25,28 +25,26 @@ function createServer(port) {
     console.log(url);
     let resMessage = {};
 
-    const res = () => {
+    if (url === `/add`) {
+      state++;
+    }
+ else if (url === `/subtract`) {
+      state--;
+    }
+ else if (url === `/reset`) {
+      state = 10;
+    }
+
+    if (url === `/state` || url === `/add` || url === `/subtract` || url === `/reset`) {
       response.writeHead(200, { 'Content-Type': 'application/json' }); // response.writeHead(statusCode[, statusMessage][, headers])
       resMessage = {
-        state: state,
+        state
       };
-    };
-
-    if (url === `/state`) {
-      res();
-    } else if (url === `/add`) {
-      state++;
-      res();
-    } else if (url === `/subtract`) {
-      state--;
-      res();
-    } else if (url === `/reset`) {
-      state = 10;
-      res();
-    } else {
+    }
+ else {
       response.writeHead(404, { 'Content-Type': 'application/json' });
       resMessage = {
-        error: 'Not found',
+        error: 'Not found'
       };
     }
 
@@ -75,5 +73,5 @@ function createServer(port) {
 */
 
 module.exports = {
-  createServer,
+  createServer
 };

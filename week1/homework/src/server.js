@@ -1,5 +1,4 @@
 'use strict';
-console.log(5);
 const http = require('http');
 
 /* `createServer` MUST return an instance of `http.Server` otherwise the tests
@@ -54,24 +53,24 @@ function createServer(port) {
   return server;
 }
 
+module.exports = {
+  createServer
+};
+
 /* test result:
   > ava --verbose
-
-  √ /state returns 10
+    √ /state returns 10
   √ /add returns 11
   √ /subtract returns 9
   √ /reset returns 10
   √ querying undefined URL returns 404 Not Found
   √ /add, /reset returns 10
   √ /subtract, /reset returns 10
-  √ /add, /add, /state, /add, /subtract returns 12 (107ms)
-  √ /subtract, /subtract, /reset, /add, /state, /subtract, /add returns 11 (119ms)
-  √ /add, /add, /add, /add, /add, /add, /add, /add, /add, /add, /state returns 20 (134ms)
-  √ /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /state returns 0 (136ms)
+  √ /add, /add, /state, /add, /subtract returns 12
+  √ /subtract, /subtract, /reset, /add, /state, /subtract, /add returns 11 (104ms)
+  √ /add, /add, /add, /add, /add, /add, /add, /add, /add, /add, /state returns 20 (119ms)
+  √ /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /subtract, /state returns 0 (120ms)
 
   11 tests passed
-*/
 
-module.exports = {
-  createServer
-};
+*/

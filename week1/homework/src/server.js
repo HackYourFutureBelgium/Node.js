@@ -1,17 +1,11 @@
 'use strict';
-
 const http = require('http');
-
-/* `createServer` MUST return an instance of `http.Server` otherwise the tests
- * will fail.
- */
-function createServer(port) {
+const handleRequest = require('./handleRequest');
+function createServer() {
   let state = 10;
-
   const server = http.createServer((request, response) => {
-    // TODO: Write your homework code here
+    state = handleRequest(request, response, state);
   });
-
   return server;
 }
 

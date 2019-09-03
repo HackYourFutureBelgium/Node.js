@@ -7,16 +7,24 @@ const userArguments = process.argv.slice(2);
 const command = userArguments[0];
 const secondCommand = userArguments[1];
 const thirdCommand = userArguments[2];
-console.log(command);
-console.log(secondCommand);
-if (command === 'list') {
-  fs.readFile('./store.txt', 'utf8', (_err, data) => {
-    if (_err) throw _err;
-    console.log(data);
+
+function readAndWrite(directory, callback) {
+  fs.readFile(directory, 'utf8', (err, data) => {
+    if (err) throw err;
     const parsed = JSON.parse(data);
-    const todoList = parsed.todo;
+    const todoListArray = parsed.todo;
+    callback(todoListArray);
+    const stringed = JSON.stringify(parsed);
+    fs.writeFile(directory, stringed, (err) => {
+      if (err) throw err;
+    });
+  });
+}
+
+if (command === 'list') {
+  readAndWrite('./store.txt', (todoList) => {
     if (todoList.length === 0) {
-      console.log(`Your list is Empty`)
+      console.log(`Your list is Empty`);
     }
     for (let i = 0; i < todoList.length; i++) {
       console.log(`${i + 1}. ${todoList[i]}`);
@@ -24,56 +32,42 @@ if (command === 'list') {
   });
 }
 else if (command === 'add') {
-  fs.readFile('./store.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    console.log(data);
-    const parsed = JSON.parse(data);
-    const todoList = parsed.todo;
+  readAndWrite('./store.txt', (todoList) => {
     todoList.push(`${secondCommand}`);
-    const stringed = JSON.stringify(parsed);
-    fs.writeFile('./store.txt', stringed, (err) => {
-      if (err) throw err;
-    });
+    console.log(`${secondCommand} is added to the list`);
   });
 }
 else if (command === 'remove') {
-  fs.readFile('./store.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    const parsed = JSON.parse(data);
-    const todoList = parsed.todo;
+  readAndWrite('./store.txt', (todoList) => {
     todoList.splice(secondCommand - 1, 1);
-    const stringed = JSON.stringify(parsed);
-    fs.writeFile('./store.txt', stringed, (err) => {
-      if (err) throw err;
-    });
+    console.log(`the item is removed from the list`);
   });
 }
-
 else if (command === 'update') {
-  fs.readFile('./store.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    const parsed = JSON.parse(data);
-    const todoList = parsed.todo;
-    todoList.splice(secondCommand - 1, 1, thirdCommand);
-    const stringed = JSON.stringify(parsed);
-    fs.writeFile('./store.txt', stringed, (err) => {
-      if (err) throw err;
-    });
+  readAndWrite('./store.txt', (todoList) => {
+    if (secondCommand > todoList.length) {
+      console.log(`the item you are trying to update is not in the list`);
+    }
+    else {
+      todoList.splice(secondCommand - 1, 1, thirdCommand);
+      console.log(`list updated`);
+    }
   });
 }
 else if (command === 'reset') {
-  fs.readFile('./store.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    const parsed = JSON.parse(data);
-    const todoList = parsed.todo;
+  readAndWrite('./store.txt', (todoList) => {
     todoList.splice(0, todoList.length);
-    const stringed = JSON.stringify(parsed);
-    fs.writeFile('./store.txt', stringed, (err) => {
-      if (err) throw err;
-    });
+    console.log(`list reseated`);
   });
 }
 else if (command === 'help' || command === undefined || command === '.') {
+  showUsage();
+}
+else {
+  showError();
+}
+
+function showUsage() {
   console.log(`
   Usage: HackYourFuture Node.js week2 to-do-app
   commands:   second Command               Third Command      
@@ -84,9 +78,11 @@ else if (command === 'help' || command === undefined || command === '.') {
   help        show this help text
 `);
 }
-else {
+
+function showError() {
   console.log(`
-  "${command}" is not a valid command
-  type help to see the valid options
+  "${command}" is not a valid command:
+  to see the valid commands type:
+  <node index > or  <node index help >
   `);
 }

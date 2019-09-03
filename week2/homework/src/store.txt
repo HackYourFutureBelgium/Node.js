@@ -1,1 +1,1 @@
-{"todo":["buy groceries","buy groceries"]}
+{"todo":[]}

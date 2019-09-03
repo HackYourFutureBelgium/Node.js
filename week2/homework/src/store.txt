@@ -1,1 +1,1 @@
-{"todo":["first item","second  item"]}
+{"todo":[]}

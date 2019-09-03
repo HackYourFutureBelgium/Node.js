@@ -9,24 +9,27 @@ const command = userArguments[0];
 const secondCommand = userArguments[1];
 const thirdCommand = userArguments[2];
 
-if (command === 'list') {
-  controller.toList();
-}
-else if (command === 'add') {
-  controller.toAdd(secondCommand);
-}
-else if (command === 'remove') {
-  controller.toRemove(secondCommand);
-}
-else if (command === 'update') {
-  controller.toUpdate(secondCommand, thirdCommand);
-}
-else if (command === 'reset') {
-  controller.toReset();
-}
-else if (command === 'help' || command === undefined || command === '.') {
-  controller.showUsage();
-}
-else {
-  controller.showError();
+switch (command) {
+  case 'list':
+    controller.toList();
+    break;
+  case 'add':
+    controller.toAdd(secondCommand);
+    break;
+  case 'remove':
+    controller.toRemove(secondCommand);
+    break;
+  case 'update':
+    controller.toUpdate(secondCommand, thirdCommand);
+    break;
+  case 'reset':
+    controller.toReset();
+    break;
+  case 'help':
+  case undefined:
+    controller.showUsage();
+    break;
+  default:
+    controller.showError();
+    break;
 }

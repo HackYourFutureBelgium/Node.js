@@ -28,7 +28,7 @@ function toList() {
 function toAdd(cmd) {
   readAndWrite('./store.txt', (todoList) => {
     todoList.push(`${cmd}`);
-    console.log(`${cmd} is added to the list`);
+    console.log(`"${cmd}" is added to the list`);
   });
 }
 
@@ -65,12 +65,14 @@ function toReset() {
 
 function showUsage() {
   console.log(`
-  Usage: HackYourFuture Node.js week2 to-do-app
-  commands:   second Command               Third Command      
-  list                                                         
-  add         item to add  
-  remove      index of the item to remove
-  update      index of the item to update     item to update
+  HackYourFuture Node.js week2 to-do-app
+  Usage: node index [command] [second Command] [third Command]
+  commands     description
+  list        list all items from todo list                                               
+  add         add item to todo list
+  remove      remove item from todo list
+  update      update  item
+  reset       delete all todo list items 
   help        show this help text
 `);
 }
@@ -79,7 +81,7 @@ function showError() {
   console.log(`
   "${process.argv[2]}" is not a valid command:
   to see the valid commands type:
-  <node index > or  <node index help >
+  <node index help >
   `);
 }
 module.exports = {

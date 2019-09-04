@@ -3,7 +3,7 @@
 const urlEvaluation = require('./urlEvaluation');
 const getStore = require('./responses/getStore');
 const sendIndexPage = require('./responses/sendIndexPage');
-const sendResponse = require('./responses/sendResponse');
+const sendError = require('./responses/sendError');
 const sendStyles = require('./responses/sendStyles');
 
 function handleRequest(request, response, state) {
@@ -21,7 +21,7 @@ function handleRequest(request, response, state) {
     }
   }
   else {
-    sendResponse.sendError(response);
+    sendError.sendJsonError(response);
   }
 
   response.end();

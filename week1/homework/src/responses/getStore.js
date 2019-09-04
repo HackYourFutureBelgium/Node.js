@@ -1,5 +1,5 @@
 'use strict';
-const sendResponse = require('./sendResponse');
+
 const DEFAULT_STATE = 10;
 
 function getStore(response, state) {
@@ -13,25 +13,33 @@ function getStore(response, state) {
 
 function setAdd(response, state) {
   state += 1;
-  sendResponse.sendJson(response, state);
+  sendJson(response, state);
   return state;
 }
 
 function setSubtract(response, state) {
   state--;
-  sendResponse.sendJson(response, state);
+  sendJson(response, state);
   return state;
 }
 
 function setReset(response, state) {
   state = DEFAULT_STATE;
-  sendResponse.sendJson(response, state);
+  sendJson(response, state);
   return state;
 }
 
 function getState(response, state) {
-  sendResponse.sendJson(response, state);
+  sendJson(response, state);
   return state;
 }
 
+function sendJson(response, state) {
+  const resultToUser = {
+    'state': state
+  };
+
+  response.setHeader('Content-Type', 'application/json');
+  response.write(JSON.stringify(resultToUser));
+}
 module.exports = getStore;

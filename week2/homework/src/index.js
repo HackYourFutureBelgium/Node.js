@@ -5,6 +5,8 @@ const messages = require('./messages');
 const storeOperations = require('./storeOperations');
 const aliases = require('./aliases');
 const ALIAS = process.argv.slice(2)[0];
+const NO_COMMANDS_ALLOW = process.argv.slice(2).length;
+
 storeOperations.checkIfFileExist();
 
 TODO_LIST
@@ -16,8 +18,8 @@ TODO_LIST
   .command('add <activity>')
   .alias(aliases.addAlias(ALIAS))
   .description('Add activity to the List To-Do')
-  .action((activity) => {
-    storeOperations.add(activity);
+  .action(() => {
+    storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
   });
 
 TODO_LIST
@@ -48,8 +50,8 @@ TODO_LIST
   .command('update <index-of-activity> <new-updated-activity>')
   .alias(aliases.updateAlias(ALIAS))
   .description('Update one activity from the To-Do list')
-  .action((index, newUpdatedActivity) => {
-    storeOperations.update(index, newUpdatedActivity);
+  .action((index) => {
+    storeOperations.update(index, process.argv.slice(3).join().replace(/,/g, ' '));
   });
 
 TODO_LIST
@@ -60,7 +62,7 @@ TODO_LIST
     messages.help();
   });
 
-if (!process.argv.slice(2).length) {
+if (!NO_COMMANDS_ALLOW) {
   messages.help();
 }
 

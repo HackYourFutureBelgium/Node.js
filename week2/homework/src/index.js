@@ -3,17 +3,18 @@
 const TODO_LIST = require('commander');
 const messages = require('./messages');
 const storeOperations = require('./storeOperations');
-
+const aliases = require('./aliases');
+const ALIAS = process.argv.slice(2)[0];
 storeOperations.checkIfFileExist();
 
 TODO_LIST
-  .version('0.1.0')
+  .version('0.1.2')
   .description('TO-DO list management system')
   .helpOption('-e, --help', 'Read more information');
 
 TODO_LIST
   .command('add <activity>')
-  .alias('a')
+  .alias(aliases.addAlias(ALIAS))
   .description('Add activity to the List To-Do')
   .action((activity) => {
     storeOperations.add(activity);
@@ -21,7 +22,7 @@ TODO_LIST
 
 TODO_LIST
   .command('remove <index-of-activity>')
-  .alias('r')
+  .alias(aliases.removeAlias(ALIAS))
   .description('delete one activity from the list To-Do')
   .action((index) => {
     storeOperations.remove(index);
@@ -29,7 +30,7 @@ TODO_LIST
 
 TODO_LIST
   .command('list ')
-  .alias('l')
+  .alias(aliases.listAlias(ALIAS))
   .description('See the To-Do list')
   .action(() => {
     storeOperations.list();
@@ -37,7 +38,7 @@ TODO_LIST
 
 TODO_LIST
   .command('reset ')
-  .alias('re')
+  .alias(aliases.resetAlias(ALIAS))
   .description('Reset the To-Do list')
   .action(() => {
     storeOperations.reset();
@@ -45,7 +46,7 @@ TODO_LIST
 
 TODO_LIST
   .command('update <index-of-activity> <new-updated-activity>')
-  .alias('u')
+  .alias(aliases.updateAlias(ALIAS))
   .description('Update one activity from the To-Do list')
   .action((index, newUpdatedActivity) => {
     storeOperations.update(index, newUpdatedActivity);
@@ -53,7 +54,7 @@ TODO_LIST
 
 TODO_LIST
   .command('help')
-  .alias('h')
+  .alias(aliases.helpAlias(ALIAS))
   .description('See all the option of the system')
   .action(() => {
     messages.help();

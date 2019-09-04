@@ -33,10 +33,13 @@ function reset() {
   process.stdin.setEncoding('utf8');
 
   process.stdin.on('readable', () => {
-    let answerFromUser = process.stdin.read().split('').splice(0, 3).join('');
-    if (answerFromUser === 'YES' || answerFromUser === 'yes') {
-      writeFile.write(information);
-      messages.resetSuccess();
+    let inData = process.stdin.read();
+    if (inData !== null) {
+      let answerFromUser = inData.split('').splice(0, 3).join('');
+      if (answerFromUser === 'YES' || answerFromUser === 'yes') {
+        writeFile.write(information);
+        messages.resetSuccess();
+      }
     }
   });
   ;

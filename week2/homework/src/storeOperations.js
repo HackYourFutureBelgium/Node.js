@@ -1,9 +1,20 @@
 /* eslint-disable max-len */
 'use strict';
 
+const commadAllowed = ['h', 'he', 'hel', 'a', 'ad', 'r', 'rem', 'remo', 'remov', 'l', 'li', 'lis', 're', 'res', 'rese',
+  'u', 'up', 'upd', 'upda', 'updat', 'help', 'add', 'remove', 'list', 'reset', 'update'];
 const readFile = require('./readFile');
 const writeFile = require('./writeFile');
 const messages = require('./messages');
+
+function checkCommand(commad) {
+  if (!commadAllowed.includes(commad)) {
+    console.log('\x1b[31m');
+    console.log('Whoops!, Please Digit a valid commad. Use \'help\' command to get more info.');
+    console.log('\x1b[0m');
+    process.exit();
+  }
+}
 
 function add(informationToAdd) {
   let information = readFile.read();
@@ -62,6 +73,7 @@ function checkIfFileExist() {
 }
 
 module.exports = {
+  checkCommand,
   add,
   remove,
   list,

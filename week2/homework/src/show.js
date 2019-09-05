@@ -4,7 +4,7 @@ function usage() {
     HackYourFuture Node.js week2 to-do-app
     Usage: node [dirname] [command] 
     commands     description
-    list        list all items from todo list                                               
+    list        list all items from todo list
     add         add item to todo list
     remove      remove item from todo list
     update      update  item

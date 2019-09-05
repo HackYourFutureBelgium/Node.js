@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 'use strict';
 const fs = require('fs');
-
+const path = require('path');
 function readAndWrite(directory, callback) {
-  const dynamicPath = `${(__dirname)}${directory}`;
+  const dynamicPath = path.join(__dirname, directory);
   fs.readFile(dynamicPath, 'utf8', (err, data) => {
     if (err) throw err;
     const parsed = JSON.parse(data);
@@ -30,12 +30,12 @@ function toList() {
   });
 }
 
-function toAdd(arr) {
+function toAdd(args) {
   readAndWrite('/store.txt', (todoList) => {
-    // to add multiple arguments at a time
-    arr.forEach(element => {
+    // add one item at a time
+    args.forEach(element => {
       todoList.push(element);
-      console.log(`      " ${element}" added to the list`);
+      console.log(`      "${element}" added to the list`);
     });
   });
 }
@@ -61,8 +61,9 @@ function toRemove(arg) {
 function toUpdate(arg1, arg2) {
   readAndWrite('/store.txt', (todoList) => {
     const index = Number(arg1);
-    if (!index) { // check if it is a number
-      console.log(`      Invalid command: index must be a Number greater than zero `);
+    // check if index is a number and the second argument is valid
+    if (!index || !arg2) {
+      console.log(`      Invalid command! Index must be a number or invalid update `);
     }
     else {
       if (index > todoList.length) { // check if it is from the list

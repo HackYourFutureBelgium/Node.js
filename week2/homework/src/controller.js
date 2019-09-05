@@ -1,15 +1,16 @@
+/* eslint-disable max-len */
 'use strict';
 const fs = require('fs');
-const path = require('path');
 
-function readAndWrite (directory, callback) {
-  fs.readFile(`${(__dirname)}${directory}`, 'utf8', (err, data) => {
+function readAndWrite(directory, callback) {
+  const dynamicPath = `${(__dirname)}${directory}`;
+  fs.readFile(dynamicPath, 'utf8', (err, data) => {
     if (err) throw err;
     const parsed = JSON.parse(data);
     const todoListArray = parsed.todo;
     callback(todoListArray);
     const stringed = JSON.stringify(parsed);
-    fs.writeFile(`${(__dirname)}${directory}`, stringed, (err) => {
+    fs.writeFile(dynamicPath, stringed, (err) => {
       if (err) throw err;
     });
   });
@@ -17,42 +18,60 @@ function readAndWrite (directory, callback) {
 
 function toList() {
   readAndWrite(`/store.txt`, (todoList) => {
-    if (todoList.length === 0) {
-      console.log(`Your list is Empty`);
-    }
-    for (let i = 0; i < todoList.length; i++) {
-      console.log(`${i + 1}. ${todoList[i]}`);
-    }
-  });
-}
-
-function toAdd(cmd) {
-  readAndWrite('/store.txt', (todoList) => {
-    todoList.push(`${cmd}`);
-    console.log(`"${cmd}" is added to the list`);
-  });
-}
-
-function toRemove(cmd) {
-  readAndWrite('/store.txt', (todoList) => {
-    if (cmd > todoList.length) {
-      console.log(`the item you are trying to remove is not in the list`);
+    if (todoList.length === 0) { // check if the list is empty
+      console.log(`      Your list is Empty please add some items`);
     }
     else {
-      todoList.splice(cmd - 1, 1);
-      console.log(`selected index item is removed from the list`);
+      console.log('Your todo activity');
+      for (let i = 0; i < todoList.length; i++) {
+        console.log(`      ${i + 1}. ${todoList[i]}`);
+      };
     }
   });
 }
 
-function toUpdate(com1, com2) {
+function toAdd(arr) {
   readAndWrite('/store.txt', (todoList) => {
-    if (com1 > todoList.length) {
-      console.log(`the item you are trying to update is not in the list`);
+    // to add multiple arguments at a time
+    arr.forEach(element => {
+      todoList.push(element);
+      console.log(`      " ${element}" added to the list`);
+    });
+  });
+}
+
+function toRemove(arg) {
+  readAndWrite('/store.txt', (todoList) => {
+    const index = Number(arg);
+    if (!index) { // check if the index is a number
+      console.log(`      Invalid command: index must be a Number greater than zero `);
     }
     else {
-      todoList.splice(com1 - 1, 1, com2);
-      console.log(`list updated`);
+      if (index > todoList.length) { // check if it is in the list
+        console.log(`      the item you are trying to remove is not in the list`);
+      }
+      else {
+        console.log(`      "${todoList[index - 1]}" is removed from the list`);
+        todoList.splice(index - 1, 1);
+      };
+    }
+  });
+}
+
+function toUpdate(arg1, arg2) {
+  readAndWrite('/store.txt', (todoList) => {
+    const index = Number(arg1);
+    if (!index) { // check if it is a number
+      console.log(`      Invalid command: index must be a Number greater than zero `);
+    }
+    else {
+      if (index > todoList.length) { // check if it is from the list
+        console.log(`      the item you are trying to update is not in the list`);
+      }
+      else {
+        console.log(`"${todoList[index - 1]}" is updated by "${arg2}"`);
+        todoList.splice(index - 1, 1, arg2);
+      }
     }
   });
 }
@@ -60,38 +79,15 @@ function toUpdate(com1, com2) {
 function toReset() {
   readAndWrite('/store.txt', (todoList) => {
     todoList.splice(0, todoList.length);
-    console.log(`list reseated`);
+    console.log(`      list reseated`);
   });
 }
 
-function showUsage() {
-  console.log(`
-  HackYourFuture Node.js week2 to-do-app
-  Usage: node index [command] [second Command] [third Command]
-  commands     description
-  list        list all items from todo list                                               
-  add         add item to todo list
-  remove      remove item from todo list
-  update      update  item
-  reset       delete all todo list items 
-  help        show this help text
-`);
-}
-
-function showError() {
-  console.log(`
-  "${process.argv[2]}" is not a valid command:
-  to see the valid commands type:
-  <node index help >
-  `);
-}
 module.exports = {
   readAndWrite,
   toList,
   toAdd,
   toRemove,
   toUpdate,
-  toReset,
-  showUsage,
-  showError
+  toReset
 };

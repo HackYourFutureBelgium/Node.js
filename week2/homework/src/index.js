@@ -3,6 +3,7 @@
 // TODO: Write the homework code in this file
 
 const controller = require('./controller');
+const show = require('./show');
 
 const userArguments = process.argv.slice(2);
 const command = userArguments[0];
@@ -14,7 +15,8 @@ switch (command) {
     controller.toList();
     break;
   case 'add':
-    controller.toAdd(secondCommand);
+    const activities = process.argv.slice(3);
+    controller.toAdd(activities);
     break;
   case 'remove':
     controller.toRemove(secondCommand);
@@ -27,9 +29,9 @@ switch (command) {
     break;
   case 'help':
   case undefined:
-    controller.showUsage();
+    show.usage();
     break;
   default:
-    controller.showError();
+    show.error();
     break;
 }

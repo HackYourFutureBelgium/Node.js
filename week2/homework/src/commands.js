@@ -25,7 +25,7 @@ const help = () => {
 
 const list = () => {
   let itemList = readFile(file);
-  console.log(itemList);
+  console.log(itemList.toString());
 };
 
 const add = (item) => {
@@ -37,7 +37,8 @@ const add = (item) => {
 const remove = (item) => {
   let itemList = readFile(file);
   const filteredList = itemList.filter(x => x !== item);
-  writeFile(file, filteredList);
+  const result = filteredList.filter(function(e){return e});
+  writeFile(file, result);
 };
 
 const update = (item,item2) => {

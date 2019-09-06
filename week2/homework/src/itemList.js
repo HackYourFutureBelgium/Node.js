@@ -1,1 +1,1 @@
-["elma","apple","banana"]
+["apple","banana"]

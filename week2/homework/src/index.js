@@ -4,11 +4,13 @@
 const TODO_LIST = require('commander');
 const messages = require('./messages');
 const storeOperations = require('./storeOperations');
-const aliases = require('./aliases');
 const COMMAND = process.argv.slice(2)[0];
 const NO_COMMANDS_ALLOW = process.argv.slice(2).length;
 
-storeOperations.checkCommand(COMMAND);
+if (storeOperations.spellCheck(COMMAND)) {
+  messages.spellCheck();
+}
+
 storeOperations.checkIfFileExist();
 
 TODO_LIST
@@ -18,15 +20,20 @@ TODO_LIST
 
 TODO_LIST
   .command('add <activity>')
-  .alias(aliases.addAlias(COMMAND))
+  .alias('a')
   .description('Add activity to the List To-Do')
   .action(() => {
-    storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
+    if (NO_COMMANDS_ALLOW) {
+      storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
+    }
+    else {
+      messages.checkActivity();
+    }
   });
 
 TODO_LIST
   .command('remove <index-of-activity>')
-  .alias(aliases.removeAlias(COMMAND))
+  .alias('r')
   .description('delete one activity from the list To-Do')
   .action((index) => {
     storeOperations.remove(index);
@@ -34,7 +41,7 @@ TODO_LIST
 
 TODO_LIST
   .command('list ')
-  .alias(aliases.listAlias(COMMAND))
+  .alias('l')
   .description('See the To-Do list')
   .action(() => {
     storeOperations.list();
@@ -42,7 +49,7 @@ TODO_LIST
 
 TODO_LIST
   .command('reset ')
-  .alias(aliases.resetAlias(COMMAND))
+  .alias('re')
   .description('Reset the To-Do list')
   .action(() => {
     storeOperations.reset();
@@ -50,15 +57,20 @@ TODO_LIST
 
 TODO_LIST
   .command('update <index-of-activity> <new-updated-activity>')
-  .alias(aliases.updateAlias(COMMAND))
+  .alias('u')
   .description('Update one activity from the To-Do list')
   .action((index) => {
-    storeOperations.update(index, process.argv.slice(3).join().replace(/,/g, ' '));
+    if (NO_COMMANDS_ALLOW) {
+      storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
+    }
+    else {
+      messages.checkActivity();
+    }
   });
 
 TODO_LIST
   .command('help')
-  .alias(aliases.helpAlias(COMMAND))
+  .alias(storeOperations.helpAlias(COMMAND))
   .description('See all the option of the system')
   .action(() => {
     messages.help();

@@ -8,7 +8,7 @@ function existFile() {
 }
 
 function read() {
-  let information = fs.readFileSync('to-do.csv');
+  let information = fs.readFile('to-do.csv');
   return convertInformationToJson(information);
 }
 

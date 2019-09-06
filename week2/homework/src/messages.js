@@ -1,6 +1,18 @@
 /* eslint-disable max-len */
 'use strict';
 
+function spellCheck() {
+  console.log('\x1b[31m');
+  console.log(`Whoops!, Please Digit a valid commad. Use 'help' command to get more info.`);
+  console.log('\x1b[0m');
+}
+
+function checkActivity() {
+  console.log('\x1b[31m');
+  console.log('Please write some activity!');
+  console.log('\x1b[0m');
+}
+
 function addSuccess() {
   console.log('\x1b[32m');
   console.log('You activity was added to the list.!');
@@ -9,7 +21,7 @@ function addSuccess() {
 
 function removeSuccess(activityToRemove) {
   console.log('\x1b[32m');
-  console.log('You activity "' + activityToRemove[0].activity + '" was removed from the list.!');
+  console.log(`You activity "${activityToRemove[0].activity}" was removed from the list.!`);
   console.log('\x1b[0m');
 }
 function showList(information) {
@@ -28,7 +40,7 @@ function showList(information) {
 function resetAdvice() {
   console.log('\x1b[31m');
   console.log('WARNING!! - If you reset the file, you will lost all your information !!!!');
-  console.log('write yes or YES to continue or type any to cancel');
+  console.log(`write 'yes' to continue or type any to cancel`);
   console.log('\x1b[0m');
 }
 
@@ -40,7 +52,7 @@ function resetSuccess() {
 
 function updateSuccess(oldActivity, newUpdatedActivity) {
   console.log('\x1b[32m');
-  console.log('You activity "' + oldActivity + '" was replaced "' + newUpdatedActivity);
+  console.log(`You activity "${oldActivity}" was replaced by "${newUpdatedActivity}"`);
   console.log('\x1b[0m');
 }
 
@@ -81,22 +93,22 @@ function isAValidIndex(index, sizeArray) {
     }
     else {
       console.log('\x1b[31m');
-      console.log('You activity doens\'t exist, please write "list" command');
+      console.log(`You activity doens't exist, please write 'list' command`);
       console.log('\x1b[0m');
       return false;
     }
   }
   else {
     console.log('\x1b[31m');
-    console.log('You must digit a number');
+    console.log('You must write a number');
     console.log('\x1b[0m');
-    console.log(index);
-    console.log(typeof index);
     return false;
   }
 }
 
 module.exports = {
+  spellCheck,
+  checkActivity,
   addSuccess,
   removeSuccess,
   showList,

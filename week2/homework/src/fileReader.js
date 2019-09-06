@@ -8,7 +8,8 @@ function existFile() {
 }
 
 function read() {
-  let information = fs.readFile('to-do.csv');
+  let information;
+  information = fs.readFileSync('./to-do.csv', 'utf8');
   return convertInformationToJson(information);
 }
 
@@ -26,7 +27,7 @@ function convertInformationToJson(information) {
   });
   return objJsonToReturn;
 }
-
+read();
 module.exports = {
   read,
   existFile

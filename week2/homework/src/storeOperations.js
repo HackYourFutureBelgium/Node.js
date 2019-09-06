@@ -39,7 +39,7 @@ function remove(index) {
 }
 
 function list() {
-  const information = fileReader.read();
+  let information = fileReader.read();
   messages.showList(information);
 }
 
@@ -52,7 +52,7 @@ function reset() {
     let inData = process.stdin.read();
     if (inData !== null) {
       let answerFromUser = inData.split('').splice(0, 3).join('');
-      if (answerFromUser.lowerCase() === 'yes') {
+      if (answerFromUser.toLowerCase() === 'yes') {
         fileWriter.write(information);
         messages.resetSuccess();
       }

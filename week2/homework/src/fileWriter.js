@@ -13,7 +13,7 @@ function write(information) {
   if (information !== '')
     informationToWrite = convertJsonToCSV(information);
 
-  fs.writeFile('to-do.csv', informationToWrite, (err) => {
+  fs.writeFile('./to-do.csv', informationToWrite, (err) => {
     if (err) return console.log(err);
   });
 }

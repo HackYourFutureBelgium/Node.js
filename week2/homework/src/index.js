@@ -23,12 +23,7 @@ TODO_LIST
   .alias('a')
   .description('Add activity to the List To-Do')
   .action(() => {
-    if (NO_COMMANDS_ALLOW) {
-      storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
-    }
-    else {
-      messages.checkActivity();
-    }
+    storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
   });
 
 TODO_LIST
@@ -40,7 +35,7 @@ TODO_LIST
   });
 
 TODO_LIST
-  .command('list ')
+  .command('list')
   .alias('l')
   .description('See the To-Do list')
   .action(() => {
@@ -60,12 +55,7 @@ TODO_LIST
   .alias('u')
   .description('Update one activity from the To-Do list')
   .action((index) => {
-    if (NO_COMMANDS_ALLOW) {
-      storeOperations.add(process.argv.slice(3).join().replace(/,/g, ' '));
-    }
-    else {
-      messages.checkActivity();
-    }
+    storeOperations.update(index, process.argv.slice(4).join().replace(/,/g, ' '));
   });
 
 TODO_LIST

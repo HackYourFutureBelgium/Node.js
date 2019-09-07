@@ -3,12 +3,16 @@
 // TODO: Write the homework code in this file
 
 const controller = require('./controller');
+
 const show = require('./show');
 
 const userArguments = process.argv.slice(2);
+
 const command = userArguments[0];
-const secondCommand = userArguments[1];
-const thirdCommand = userArguments[2];
+
+const index = userArguments[1];
+
+const item = userArguments[2];
 
 switch (command) {
   case 'list':
@@ -19,10 +23,10 @@ switch (command) {
     controller.toAdd(activities);
     break;
   case 'remove':
-    controller.toRemove(secondCommand);
+    controller.toRemove(index);
     break;
   case 'update':
-    controller.toUpdate(secondCommand, thirdCommand);
+    controller.toUpdate(index, item);
     break;
   case 'reset':
     controller.toReset();

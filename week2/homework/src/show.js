@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 
 function usage() {
-  console.log(`
+  console.log(chalk.green(`
     HackYourFuture Node.js week2 to-do-app
     Usage: node <dirname> <command>
     commands     description
@@ -12,12 +12,12 @@ function usage() {
     update      update  item
     reset       delete all todo list items 
     help        show this help text
-`);
+`));
 }
 
-function error() {
+function error(command) {
   console.log(chalk.red(`
-  "${process.argv[2]}" is not a valid command:
+  "${command}" is not a valid command:
   to see the valid commands type:
   <node . > or <node . help>
   `));

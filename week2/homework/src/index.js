@@ -36,6 +36,6 @@ switch (command) {
     show.usage();
     break;
   default:
-    show.error();
+    show.error(command);
     break;
 }

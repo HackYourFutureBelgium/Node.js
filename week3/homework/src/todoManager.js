@@ -61,6 +61,19 @@ class TodoManager {
     // third argument of stringify is nr of spaces indentation for readability
     return fs.writeFile(this._filename, JSON.stringify(todos, null, 2));
   }
+
+  async mark(id) {
+    const todos = await this.read();
+    const todo = todos.find(t => t.id === id);
+    if (todo === null || todo === undefined) {
+      const error = new Error(`To-do with ID ${id} does not exist`);
+      error.code = 'not-found';
+      throw error;
+    }
+    todo.done = true;
+    await this.write(todos);
+    return todo;
+  }
 }
 
 module.exports = TodoManager;

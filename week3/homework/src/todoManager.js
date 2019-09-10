@@ -42,7 +42,7 @@ class TodoManager {
       // Send an Error when the activity doesn't.
       const deleteItem = todos.filter(t => t.id === id);
       if (!deleteItem.length) {
-        throw Error(`The TODO Activity doesn't Exist`);
+        throw Error(`The activity with id: ${id} doesn't Exist`);
       }
     }
     return this.write(filteredTodos);
@@ -62,7 +62,7 @@ class TodoManager {
     return fs.writeFile(this._filename, JSON.stringify(todos, null, 2));
   }
 
-  async mark(id) {
+  async mark(id, method) {
     const todos = await this.read();
     const todo = todos.find(t => t.id === id);
     if (todo === null || todo === undefined) {
@@ -70,7 +70,19 @@ class TodoManager {
       error.code = 'not-found';
       throw error;
     }
-    todo.done = true;
+    if (method === 'POST') {
+      if (todo.done === true) {
+        throw new Error(`The activity is already with state done`);
+      }
+      todo.done = true;
+    }
+    else {
+      if (todo.done === false) {
+        throw new Error(`The activity is currently with state not made`);
+      }
+      todo.done = false;
+    }
+
     await this.write(todos);
     return todo;
   }

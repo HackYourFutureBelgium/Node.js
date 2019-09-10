@@ -2,7 +2,8 @@
 
 function markAsDone(todo, request, response) {
   const id = request.params.id;
-  todo.mark(id)
+  const method = request.method;
+  todo.mark(id, method)
     .then(todo => {
       response.json({ todo });
       response.end();

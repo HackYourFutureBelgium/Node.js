@@ -37,6 +37,7 @@ app.delete(`/${TODOS}/:id`, deleteTodo.bind(null, todoManager));
 app.get(`/${TODOS}/:id`, readTodos.bind(null, todoManager));
 app.delete(`/${TODOS}`, deleteTodo.bind(null, todoManager));
 app.post(`/${TODOS}/:id/done`, markAsDone.bind(null, todoManager));
+app.delete(`/${TODOS}/:id/done`, markAsDone.bind(null, todoManager));
 
 app.listen(PORT, error => {
   if (error)

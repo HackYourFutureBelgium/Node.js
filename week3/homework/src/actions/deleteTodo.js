@@ -3,14 +3,15 @@
 function deleteTodo(todoManager, request, response) {
   const id = request.params.id;
 
+  console.log(id);
   todoManager.delete(id)
     .then(() => {
       response.status(204);
       response.end();
     })
-    .catch(({message}) => {
+    .catch(({ message }) => {
       response.status(500);
-      response.json({error: message});
+      response.json({ error: message });
     });
 }
 

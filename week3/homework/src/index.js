@@ -32,6 +32,9 @@ app.get(`/${TODOS}`, readTodos.bind(null, todoManager));
 app.put(`/${TODOS}/:id`, updateTodo.bind(null, todoManager));
 app.delete(`/${TODOS}/:id`, deleteTodo.bind(null, todoManager));
 
+// Assigment week3:
+app.get(`/${TODOS}/:id`, readTodos.bind(null, todoManager));
+
 app.listen(PORT, error => {
   if (error)
     return console.error(error);

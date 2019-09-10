@@ -37,6 +37,11 @@ class TodoManager {
   async delete(id) {
     const todos = await this.read();
     const filteredTodos = todos.filter(t => t.id !== id);
+    // Send an Error when the activity doesn't.
+    const deleteItem = todos.filter(t => t.id === id);
+    if (!deleteItem.length) {
+      throw Error(`The TODO Activity doesn't Exist`);
+    }
     return this.write(filteredTodos);
   }
 

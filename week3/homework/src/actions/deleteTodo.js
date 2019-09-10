@@ -1,8 +1,10 @@
 'use strict';
 
 function deleteTodo(todoManager, request, response) {
-  const id = request.params.id;
-
+  let id = null;
+  if (request.params.id) {
+    id = request.params.id;
+  }
   console.log(id);
   todoManager.delete(id)
     .then(() => {

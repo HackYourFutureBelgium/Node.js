@@ -96,8 +96,8 @@ function toUpdate(arg1, arg2) {
       }
 
       else {
-        console.log(chalk.green(`"${todoList[index - 1]}" is updated by "${arg2}"`));
         todoList.splice(index - 1, 1, arg2);
+        console.log(chalk.green(`"${todoList[index - 1]}" is updated by "${arg2}"`));
       }
     }
 

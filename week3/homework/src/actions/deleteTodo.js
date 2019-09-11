@@ -5,7 +5,6 @@ function deleteTodo(todoManager, request, response) {
   if (request.params.id) {
     id = request.params.id;
   }
-  console.log(id);
   todoManager.delete(id)
     .then(() => {
       response.status(204);

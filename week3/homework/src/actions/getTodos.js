@@ -4,18 +4,13 @@ function getTodos(todo, request, response) {
   todo.read()
     .then(todos => {
       const id = request.params.id;
-      if (id) {
-        let activityToDo = null;
-        todos.forEach(element => {
-          if (element.id === id) {
-            activityToDo = element;
-          }
-        });
-        if (activityToDo) {
+      if (id !== undefined) {
+        let activityToDo = todos.filter(t => t.id === id);
+        if (activityToDo.length) {
           response.json({ activityToDo });
         }
         else {
-          throw Error(`The TODO Activity doesn't Exist`);
+          throw Error(`The TODO Activity ${id} doesn't Exist`);
         }
       }
       else {

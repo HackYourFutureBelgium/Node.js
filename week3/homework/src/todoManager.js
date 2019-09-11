@@ -23,7 +23,7 @@ class TodoManager {
   async update(id, description) {
     const todos = await this.read();
     const todo = todos.find(t => t.id === id);
-    if (todo === null) {
+    if (todo === undefined) {
       const error = new Error(`To-do with ID ${id} does not exist`);
       error.code = 'not-found';
       throw error;
@@ -65,7 +65,7 @@ class TodoManager {
   async mark(id, method) {
     const todos = await this.read();
     const todo = todos.find(t => t.id === id);
-    if (todo === null || todo === undefined) {
+    if (todo === undefined) {
       const error = new Error(`To-do with ID ${id} does not exist`);
       error.code = 'not-found';
       throw error;
@@ -82,7 +82,6 @@ class TodoManager {
       }
       todo.done = false;
     }
-
     await this.write(todos);
     return todo;
   }

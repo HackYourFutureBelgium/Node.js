@@ -23,7 +23,7 @@ class TodoManager {
   async update(id, description) {
     const todos = await this.read();
     const todo = todos.find(t => t.id === id);
-    if (todo === null) {
+    if (!todo) {
       const error = new Error(`To-do with ID ${id} does not exist`);
       error.code = 'not-found';
       throw error;

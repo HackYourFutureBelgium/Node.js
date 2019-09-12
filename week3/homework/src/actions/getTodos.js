@@ -5,8 +5,8 @@ function getTodos(todo, request, response) {
     .then(todos => {
       const id = request.params.id;
       if (id !== undefined) {
-        let todo = todos.filter(t => t.id === id);
-        if (todo.length) {
+        let todo = todos.find(t => t.id === id);
+        if (todo) {
           response.json({ todo });
         }
         else {

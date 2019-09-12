@@ -3,7 +3,7 @@
 const fs = require('fs');
 const ENCODING = 'utf8';
 
-function readTodoFile (filename, callback) {
+function readTodoFile(filename, callback) {
   fs.readFile(filename, ENCODING, (err, data) => {
     if (err) throw err;
 
@@ -29,4 +29,4 @@ function writeTodoFile(filename, data, callback) {
 module.exports = {
   readTodoFile,
   writeTodoFile
-}
+};

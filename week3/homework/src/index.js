@@ -3,30 +3,32 @@
 // require installed apps
 
 const path = require('path');
-const Joi = require('joi');
+const uuid = require('uuid/v4');
 const express = require('express');
 const app = express();
+
 const {
   readTodoFile,
   writeTodoFile
 } = require('./controllers');
 
-const bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 const storeFile = path.join(__dirname, 'store.json');
 
-readTodoFile(storeFile, (data) => console.log(data));
-
 // createTodo (POST /todos)
 app.post('/todos', (req, res) => {
-  // validate
+  // validate request
+  const todo = req.body.todo;
+  if (req.body || todo || todo.description) {
+    return  res.status(400).send(`todo and description are required`);
+  }
+
   // add to todo list
   readTodoFile(storeFile, (todoList) => {
     const task = {
-      id: todoList.length + 1,
-      description: req.body.todo.description,
+      id: uuid(),
+      description: todo.description,
       done:false
     };
 
@@ -40,7 +42,6 @@ app.post('/todos', (req, res) => {
 
 // getTodos (GET /todos)
 app.get('/todos', (req, res) => {
-  // check if there is
   readTodoFile(storeFile, (todoList) => {
     res.send(todoList);
   });
@@ -48,16 +49,21 @@ app.get('/todos', (req, res) => {
 
 // updateTodo (PUT /todos/:id)
 app.put('/todos/:id', (req, res) => {
+  // validate
+  const todo = req.body.todo;
+
+  if (req.body || todo || todo.description) {
+    return  res.status(400).send(`todo and description are required`);
+  }
+
   // look up the list
   readTodoFile(storeFile, (todoList) => {
-    const task = todoList.find(todo => todo.id === Number(req.params.id));
+    const task = todoList.find(todo => todo.id === req.params.id);
 
     // if not exists , return 404
     if (!task) {
-      return res.status(404).send('the todo task with the given ID is not found');     
+      return res.status(404).send('the todo task with the given ID is not found');
     };
-    // validate
-    // if invalid return 400 bad request
 
     // update
     task.description = req.body.todo.description;
@@ -68,21 +74,18 @@ app.put('/todos/:id', (req, res) => {
 
     res.status(200).send(task);
   });
-  // send to client
 });
 
 // deleteTodo (DELETE /todos/:id)
 app.delete('/todos/:id', (req, res) => {
   // look up the list
   readTodoFile(storeFile, (todoList) => {
-    const task = todoList.find(todo => todo.id === Number(req.params.id));
+    const task = todoList.find(todo => todo.id === req.params.id);
 
     // if not exists , return 404
     if (!task) {
-      return res.status(404).send('the todo task with the given ID is not found');     
+      return res.status(404).send('the todo task with the given ID is not found');
     };
-    // validate
-    // if invalid return 400 bad request
 
     // delete
     const index = todoList.indexOf(task);
@@ -98,11 +101,11 @@ app.delete('/todos/:id', (req, res) => {
 app.get('/todos/:id', (req, res) => {
   // look up the list
   readTodoFile(storeFile, (todoList) => {
-    const task = todoList.find(todo => todo.id === Number(req.params.id));
+    const task = todoList.find(todo => todo.id === req.params.id);
 
     // if not exists , return 404
     if (!task) {
-      return res.status(404).send('the todo task with the given ID is not found');     
+      return res.status(404).send('the todo task with the given ID is not found');
     };
 
     res.status(200).send(task);
@@ -123,11 +126,11 @@ app.delete('/todos', (req, res) => {
 // markAsDone (POST /todos/:id/done)
 app.post('/todos/:id/done', (req, res) => {
   readTodoFile(storeFile, (todoList) => {
-    const task = todoList.find(todo => todo.id === Number(req.params.id));
+    const task = todoList.find(todo => todo.id === req.params.id);
 
     // if not exists , return 404
     if (!task) {
-      return res.status(404).send('the todo task with the given ID is not found');     
+      return res.status(404).send('the todo task with the given ID is not found');
     };
 
     // update
@@ -144,11 +147,11 @@ app.post('/todos/:id/done', (req, res) => {
 // markAsNotDone (DELETE /todos/:id/done)
 app.delete('/todos/:id/done', (req, res) => {
   readTodoFile(storeFile, (todoList) => {
-    const task = todoList.find(todo => todo.id === Number(req.params.id));
+    const task = todoList.find(todo => todo.id === req.params.id);
 
     // if not exists , return 404
     if (!task) {
-      return res.status(404).send('the todo task with the given ID is not found');     
+      return res.status(404).send('the todo task with the given ID is not found');
     };
 
     // update
@@ -164,13 +167,3 @@ app.delete('/todos/:id/done', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT} ...`));
-
-function validateTodoList(task) {
-  const schema = {
-    todo: {
-      description: Joi.string().required()
-    }
-  };
-
-  return Joi.validate(task, schema);
-};

@@ -5,9 +5,9 @@ function getTodos(todo, request, response) {
     .then(todos => {
       const id = request.params.id;
       if (id !== undefined) {
-        let activityToDo = todos.filter(t => t.id === id);
-        if (activityToDo.length) {
-          response.json({ activityToDo });
+        let todo = todos.filter(t => t.id === id);
+        if (todo.length) {
+          response.json({ todo });
         }
         else {
           throw Error(`The TODO Activity ${id} doesn't Exist`);

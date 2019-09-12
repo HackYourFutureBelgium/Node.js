@@ -70,7 +70,7 @@ class TodoManager {
       error.code = 'not-found';
       throw error;
     }
-    if (method === 'POST') {
+    if (method === 'PUT') {
       if (todo.done === true) {
         throw new Error(`The activity is already with state done`);
       }

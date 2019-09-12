@@ -13,7 +13,7 @@ class TodoManager {
     const todo = {
       id: uuid(),
       done: false,
-      description
+      description,
     };
     todos.push(todo);
     await this.write(todos);
@@ -34,6 +34,20 @@ class TodoManager {
     return todo;
   }
 
+  async mark(id, description, bool) {
+    const todos = await this.read();
+    const todo = todos.find(t => t.id === id);
+    if (todo === null) {
+      const error = new Error(`To-do with ID ${id} does not exist`);
+      error.code = 'not-found';
+      throw error;
+    }
+    todo[`${description}`] = bool;
+    await this.write(todos);
+
+    return todo;
+  }
+
   async delete(id) {
     const todos = await this.read();
     const filteredTodos = todos.filter(t => t.id !== id);
@@ -41,9 +55,10 @@ class TodoManager {
   }
 
   read() {
-    return fs.readFile(this._filename, DEFAULT_ENCODING)
-      .then((contents) => JSON.parse(contents))
-      .catch((err) => {
+    return fs
+      .readFile(this._filename, DEFAULT_ENCODING)
+      .then(contents => JSON.parse(contents))
+      .catch(err => {
         if (err.code === 'ENOENT') return [];
         else throw err;
       });

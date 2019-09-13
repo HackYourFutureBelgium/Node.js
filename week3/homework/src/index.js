@@ -7,7 +7,11 @@ const {
   createTodo,
   readTodos,
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  readTodo,
+  clearTodos,
+  markAsDone,
+  markAsNotDone
 } = require('./actions');
 
 const TodoManager = require('./todoManager');
@@ -31,6 +35,11 @@ app.post(`/${TODOS}`, createTodo.bind(null, todoManager));
 app.get(`/${TODOS}`, readTodos.bind(null, todoManager));
 app.put(`/${TODOS}/:id`, updateTodo.bind(null, todoManager));
 app.delete(`/${TODOS}/:id`, deleteTodo.bind(null, todoManager));
+app.get(`/${TODOS}/:id`, readTodo.bind(null, todoManager));
+app.delete(`/${TODOS}`, clearTodos.bind(null, todoManager));
+app.post(`/${TODOS}/:id/done`, markAsDone.bind(null, todoManager));
+app.delete(`/${TODOS}/:id/done`, markAsNotDone.bind(null, todoManager));
+
 
 app.listen(PORT, error => {
   if (error)

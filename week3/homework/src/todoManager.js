@@ -40,6 +40,32 @@ class TodoManager {
     return this.write(filteredTodos);
   }
 
+  async deleteAll() {
+    return this.write([]);
+  }
+
+  async readById(id) {
+    const todos = await this.read();
+    const todo = todos.find(t => t.id === id);
+    return todo;
+  }
+
+  async markAsDone(id) {
+    const todos = await this.read();
+    const todo = todos.find(t => t.id === id);
+    todo.done = true;
+    await this.write(todos);
+    return todo;
+  }
+
+  async markAsNotDone(id) {
+    const todos = await this.read();
+    const todo = todos.find(t => t.id === id);
+    todo.done = false;
+    await this.write(todos);
+    return todo;
+  }
+
   read() {
     return fs.readFile(this._filename, DEFAULT_ENCODING)
       .then((contents) => JSON.parse(contents))

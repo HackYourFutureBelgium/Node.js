@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Todo Application</title>
+  <meta name="description" content="Keep track of your todo's in a list">
+  <meta name="keywords" content="html todo list">
+</head>
+
+<body>
+  <h1>Todo Application</h1>
+  <p>Description of application</p>
+  
+  <h2>Documentation</h2>
+  <ul>
+    <li>
+      <strong>POST</strong> /todos <em>Creates a new todo</em> <br/>
+      Expected request message body:
+      <code>
+        <pre>
+{
+  "todo": {
+    "description": "Buy groceries"
+  }
+}      
+        </pre>
+      </code>
+    </li>
+    <li>
+      <strong>GET</strong> /todos <em>Returns list of todos</em> <br/>
+      Response message body: 
+      <code>
+        <pre>
+{ "todos": 
+  [ 
+    {
+      "id": "9b60db4c-2042-4516-9a37-fb916465de7c",
+      "done": false,
+      "description": "Buy cat food"
+    }
+  ]
+}
+        </pre>
+      </code>
+    </li>
+  </ul>
+</body>
+
+</html>

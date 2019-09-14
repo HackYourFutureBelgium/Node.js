@@ -7,6 +7,7 @@ const uuid = require('uuid/v4');
 const express = require('express');
 const app = express();
 
+const validate = require('./validate');
 const {
   readTodoFile,
   writeTodoFile
@@ -16,12 +17,20 @@ app.use(express.json());
 
 const storeFile = path.join(__dirname, 'store.json');
 
+// render readme.html 
+
+app.get('/', (req, res) => {
+  res.sendFile('/readme.html', {root: __dirname});
+});
+
 // createTodo (POST /todos)
 app.post('/todos', (req, res) => {
   // validate request
   const todo = req.body.todo;
-  if (req.body || todo || todo.description) {
-    return  res.status(400).send(`todo and description are required`);
+  const valid = validate.validateTodoList(req.body);
+  console.log(valid);
+  if (!valid) {
+    return res.status(400).send('Bad Request ');
   }
 
   // add to todo list

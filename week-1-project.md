@@ -40,3 +40,22 @@ The tutorials below will introduce to what's new and what's special about Node. 
 * [Traversy: Node for Absolute Beginners](https://www.youtube.com/watch?v=U8XF6AFGqlc)
 * [Traversy: Node.js Crash Course](https://www.youtube.com/watch?v=fBNz5xF-Kx4)
 * [Mosh: Node.js in 1 Hour](https://www.youtube.com/watch?v=TlB_eWDSMt4)
+
+__API's and Express__
+
+Node.js is a JavaScript runtime environment capable of writing Web Servers and API's all by itself.  But it's a bit annoying.  Express is a great and easy to use framework to help you write API's and Web Servers by handling all of the boring stuff for you so you can focus on what your app does.
+
+> [JSON Server](https://github.com/typicode/json-server) - An NPM module that starts a RESTful API without you having to write a single line of code.  This can be helpful practice for getting the hang of API's and Postman without getting caught up with bugs and errors.
+
+* [What is RESTful? (Traversy)](https://www.youtube.com/watch?v=Q-BpqyOT3a8)
+* [What is RESTful?](https://www.youtube.com/watch?v=7YcW25PHnAA)
+* [Traversy: Express Crash Course](https://www.youtube.com/watch?v=gnsO8-xJ8rs)
+* [Mosh: Restful API's](https://www.youtube.com/watch?v=pKd0Rpw7O48)
+* [FCC: Node.js & Express](https://www.youtube.com/watch?v=G8uL0lFFoN0)
+* [Restful API with Node & Express](https://www.youtube.com/watch?v=7nulchT1Ruk)
+
+<hr>
+<hr>
+<a href="https://hackyourfuture.be" target="_blank"><img
+    src="https://user-images.githubusercontent.com/18554853/63941625-4c7c3d00-ca6c-11e9-9a76-8d5e3632fe70.jpg"
+    width="100" height="100"></a>

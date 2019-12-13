@@ -23,7 +23,7 @@ You will be expected to cleanly develop your project with one branch per route a
 
 ---
 
-### Writing and Debugging JavaScript in Node.js
+### File System & API's in Node
 
 
 
@@ -44,6 +44,17 @@ The tutorials below will introduce to what's new and what's special about Node. 
 * [Traversy: Node for Absolute Beginners](https://www.youtube.com/watch?v=U8XF6AFGqlc)
 * [Traversy: Node.js Crash Course](https://www.youtube.com/watch?v=fBNz5xF-Kx4)
 * [Mosh: Node.js in 1 Hour](https://www.youtube.com/watch?v=TlB_eWDSMt4)
+
+
+
+__fs: Synchronous & Async__
+* [__promises__: FunFunFunction](https://www.youtube.com/watch?v=2d7s3spWAzo&list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
+* [__async/await__: FunFunFunction](https://www.youtube.com/watch?v=568g8hxJJp4)
+* [__fs__: TechSith video](https://www.youtube.com/watch?v=a6dRdtOy4Bg)
+* [__fs__: Net Ninja video](https://www.youtube.com/watch?v=U57kU311-nE)
+* [__fs, async vs. sync__: Eduonix](https://www.youtube.com/watch?v=vctMo1fDwV4)
+* [__fs, async vs. sync__: Kharbanda](https://www.youtube.com/watch?v=dgdcXGxh93s)
+
 
 __API's and Express__
 

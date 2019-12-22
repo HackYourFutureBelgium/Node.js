@@ -2,7 +2,7 @@
 
 This week's project is to complete as many of the  `node-practice-*` repositories as you can!
 
-Each one is a smallish node project based around a single function.  After passing the tests, you'll need to write a simple CLI & API that allow a user to interact with your function and some files of data.
+Each one is a smallish node project based around a couple function.  After passing the tests, you'll need to write a simple CLI & API that allow a user to interact with your function and some files of data.
 
 You will be expected to cleanly develop your project with one branch per step (up to you to decide what a step is!) and complete the README with a report on what you struggled with, what you learned, and what skills you now need to work.   You will be assessed not only on your solutions to the function, but also on the quality of your code, the correctness of your branches, and the completeness of your learning notes in the README.
 
